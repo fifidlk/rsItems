@@ -14,6 +14,7 @@ rsLineItem::rsLineItem(QPoint pA, QPoint pB) : rsGraphicsItem() {
 
     _points << pA;
     _points << pB;
+    _addModeAllowed=false;
     updateBoundingRect();
 
 }
@@ -85,3 +86,4 @@ void rsLineItem::updateBoundingRect(){
     _handles.append(QRect(_points[1].x()-5,_points[1].y()-5,10,10));
 
 }
+

@@ -5,11 +5,12 @@
 
 
 
-class rsGraphicsItem : public QGraphicsItem
+class rsGraphicsItem :  public QObject, public QGraphicsItem
 {
+    Q_OBJECT
+
 public:
     rsGraphicsItem();
-    void enterAddMode(void) ;
 
 
      QRectF boundingRect(void) const  ;
@@ -22,6 +23,10 @@ public:
     void mouseMoveEvent(QGraphicsSceneMouseEvent *event);
     void mouseReleaseEvent(QGraphicsSceneMouseEvent *event);
 
+public slots:
+
+    void enterAddMode(void) ;
+
 protected :
     virtual void updateBoundingRect(void){}
     virtual void resize(QGraphicsSceneMouseEvent *event){}
@@ -32,7 +37,8 @@ protected :
 
     QRectF _boundingRect;
     int _hId;               // identificateur du handle (point) de redim
-    bool _addMode;          // flag pour mode addition de points
+    bool _addMode=false;          // flag pour mode addition de points
+    bool _addModeAllowed=true;   //
 
 };
 
