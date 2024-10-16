@@ -11,11 +11,13 @@ CONFIG += c++17
 SOURCES += \
     main.cpp \
     mainwindow.cpp \
-    rsItems/rslineitem.cpp
+    rsgraphicsitem.cpp \
+    rslineitem.cpp
 
 HEADERS += \
     mainwindow.h \
-    rsItems/rslineitem.h
+    rsgraphicsitem.h \
+    rslineitem.h
 
 FORMS += \
     mainwindow.ui
