@@ -1,5 +1,5 @@
-#ifndef RSLINEITEM_H
-#define RSLINEITEM_H
+#ifndef RSPOLYLINEITEM_H
+#define RSPOLYLINEITEM_H
 
 #include <QGraphicsItem>
 #include "rsgraphicsitem.h"
@@ -8,22 +8,24 @@
 
 #include <QLine>
 
-class rsLineItem : public rsGraphicsItem
+#include "rsgraphicsitem.h"
+
+class rsPolyLineItem : public rsGraphicsItem
 {
 public:
-    rsLineItem(QPoint pA, QPoint pB);
+    rsPolyLineItem(QList<QPoint> points);
 
-    //QRectF boundingRect(void) const  ;
     void paint (QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget)  ;
 
 
+
 private :
-//    QRectF _handleA,_handleB;
 
     void updateBoundingRect(void);
     void resize(QGraphicsSceneMouseEvent *event);
+    void addPoint(QPoint pos);
 
 };
 
-#endif // RSLINEITEM_H
+#endif // RSPOLYLINEITEM_H

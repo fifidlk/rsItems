@@ -1,5 +1,6 @@
 
 #include <QGraphicsItem>
+#include "rsgraphicsitem.h"
 #include <QGraphicsSceneMouseEvent>
 #include <qpainter.h>
 #include "rslineitem.h"
@@ -9,10 +10,10 @@
 
 // ***********************************************
 // create a resizable line from pA to pB
-rsLineItem::rsLineItem(QPoint pA, QPoint pB) : QGraphicsItem() {
+rsLineItem::rsLineItem(QPoint pA, QPoint pB) : rsGraphicsItem() {
 
-    _pA=pA;
-    _pB=pB;
+    _points << pA;
+    _points << pB;
     updateBoundingRect();
 
 }
@@ -28,97 +29,35 @@ void rsLineItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *option
     hBrush.setColor(Qt::blue);
     QPen hPen(Qt::black);
 
-    painter->drawLine(_pA,_pB);
+    painter->drawLine(_points[0],_points[1]);
     if (this->isSelected()) {
         painter->setBrush(hBrush);
         painter->setPen(Qt::lightGray);
 
-        painter->drawRect(_handleA);
-        painter->drawRect(_handleB);
+        painter->drawRect(_handles[0]);
+        painter->drawRect(_handles[1]);
         // painter->drawRect(_boundingRect);
     }
 
 }
 
-// ***********************************************
-// return the bounding rectangle
-QRectF rsLineItem::boundingRect() const {
-
-    return _boundingRect;
-
-}
-
-// ***********************************************
-void rsLineItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
-
-    int hId;
-    if ((hId=isMouseInHandle(event->pos()))) {
-
-        _hId=hId;
-    }
-    else
-        QGraphicsItem::mousePressEvent(event);
-
-}
-
-// ***********************************************
-void rsLineItem::mouseMoveEvent(QGraphicsSceneMouseEvent *event){
-
-    if (_hId) resize(event);
-    else QGraphicsItem::mouseMoveEvent(event);
-}
-
-// ***********************************************
-void rsLineItem::mouseReleaseEvent(QGraphicsSceneMouseEvent *event){
-
-    if (_hId) _hId=0; //resize(event);
-    else QGraphicsItem::mouseReleaseEvent(event);
-}
 
 
 // ***********************************************
 void rsLineItem::resize(QGraphicsSceneMouseEvent *event){
 
-    if (_hId==1) {
+    if (_hId>-1) {
 
-        _pA.setX(event->pos().x());
-        _pA.setY(event->pos().y());
-    }
-    if (_hId==2) {
-
-        _pB.setX(event->pos().x());
-        _pB.setY(event->pos().y());
-    }
+        _points[_hId].setX(event->pos().x());
+        _points[_hId].setY(event->pos().y());
 
     prepareGeometryChange();
     updateBoundingRect();
+    }
 }
 
 
 
-// ***********************************************
-// rend 1 si pos est dans le handler A
-// rend 2 si pos est dans le handler B
-// sinon rend 0
-
-int  rsLineItem::isMouseInHandle(QPointF pos) {
-
-    if (    pos.x()>=_handleA.x() &&
-            pos.x()<=_handleA.x()+_handleA.width() &&
-        pos.y()>= _handleA.y() &&
-        pos.y()<= _handleA.y()+_handleA.height())
-        return 1;
-
-    if (    pos.x()>=_handleB.x() &&
-        pos.x()<=_handleB.x()+_handleB.width() &&
-        pos.y()>= _handleB.y() &&
-        pos.y()<= _handleB.y()+_handleB.height())
-        return 2;
-
-    return 0;
-
-
-}
 
 
 // ***********************************************
@@ -127,10 +66,10 @@ void rsLineItem::updateBoundingRect(){
 
     int xMin,xMax,yMin,yMax,h,w;
 
-    xMin= min(_pA.x(),_pB.x());
-    xMax= max(_pA.x(),_pB.x());
-    yMin= min (_pA.y(),_pB.y());
-    yMax= max (_pA.y(),_pB.y());
+    xMin= min(_points[0].x(),_points[1].x());
+    xMax= max(_points[0].x(),_points[1].x());
+    yMin= min (_points[0].y(),_points[1].y());
+    yMax= max (_points[0].y(),_points[1].y());
 
     _boundingRect.setX(xMin-5);
     _boundingRect.setY(yMin-5);
@@ -141,7 +80,8 @@ void rsLineItem::updateBoundingRect(){
     _boundingRect.setWidth(w+10);
     _boundingRect.setHeight(h+10);
 
-    _handleA.setRect(_pA.x()-5,_pA.y()-5,10,10);
-    _handleB.setRect(_pB.x()-5,_pB.y()-5,10,10);
+    _handles.clear();
+    _handles.append(QRect(_points[0].x()-5,_points[0].y()-5,10,10));
+    _handles.append(QRect(_points[1].x()-5,_points[1].y()-5,10,10));
 
 }

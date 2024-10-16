@@ -3,6 +3,7 @@
 #include <QGraphicsView>
 #include <QGraphicsItem>
 #include <rslineitem.h>
+#include "rspolylineitem.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -17,11 +18,22 @@ MainWindow::MainWindow(QWidget *parent)
     QPoint pb=QPoint(100,150);
 
     rsLineItem *item;
-    item    = new rsLineItem(pa,pb);
+    // item    = new rsLineItem(pa,pb);
+    // item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
+    // scene->addItem(item);
 
-   // item = scene->addRect(0,0,20,80);
-    scene->addItem(item);
-    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
+    QList<QPoint> points={{10,10},{20,30},{50,50},{70,100}} ;
+    rsPolyLineItem *polyline = new rsPolyLineItem(points);
+    polyline->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
+    scene->addItem(polyline);
+    polyline->enterAddMode();
+
+ //   rsLineItem *item;
+   //  item    = new rsLineItem(pa,pb);
+
+   // // item = scene->addRect(0,0,20,80);
+   //  scene->addItem(item);
+   //  item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
  //   item->setFlags(QGraphicsItem::ItemIsSelectable);
 
     ui->graphicsView->setScene(scene);
