@@ -4,6 +4,8 @@
 #include "rsgraphicsitem.h"
 #include "qdebug.h"
 
+// ***********************************************
+//
 rsGraphicsItem::rsGraphicsItem() : QObject() {
 
     _hId=-1;
@@ -114,3 +116,4 @@ int  rsGraphicsItem::isMouseInHandle(QPointF pos) {
 
 
 }
+

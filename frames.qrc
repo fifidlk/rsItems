@@ -1,0 +1,12 @@
+<RCC>
+    <qresource prefix="/">
+        <file>Sans titre.png</file>
+        <file>galets.png</file>
+        <file>blocs.png</file>
+        <file>Frames/boulders.png</file>
+        <file>Frames/galets.png</file>
+        <file>Frames/WORK.png</file>
+        <file>Frames/bouldersW.png</file>
+        <file>Frames/galetsW.png</file>
+    </qresource>
+</RCC>

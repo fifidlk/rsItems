@@ -16,6 +16,7 @@ MainWindow::MainWindow(QWidget *parent)
 
     _scene=new QGraphicsScene ;
 
+    ui->toolButton->setIcon(QIcon(":/Sans titre.png"));
     ui->graphicsView->setScene(_scene);
 
 
@@ -24,35 +25,69 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::slot1(){
 
-    QPoint pa=QPoint(10,15);
-    QPoint pb=QPoint(100,150);
-    rsLineItem *item;
-    item    = new rsLineItem(pa,pb);
-    item->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
-    _scene->addItem(item);
+    QPixmap map(":/Frames/bouldersW.png");
+    QBrush brush(Qt::blue);
+    brush.setTexture(map);
+    brush.setStyle(Qt::TexturePattern);
+
+
+    QList<QPoint> points={{10,10},{10,70},{70,70},{70,10}} ;
+    rsPolygonItem *polygon = new rsPolygonItem(points);
+    polygon->setBrush(brush);
+    polygon->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
+    _scene->addItem(polygon);
+    // polygon->enterAddMode();
 }
 
 void MainWindow::slot2(){
 
-    QList<QPoint> points={{75,10},{30,30},{25,50},{80,110}} ;
-    rsPolyLineItem *polygon = new rsPolyLineItem(points);
+    QPixmap map(":/Frames/boulders.png");
+    QBrush brush(Qt::blue);
+    brush.setTexture(map);
+    brush.setStyle(Qt::TexturePattern);
+
+
+    QList<QPoint> points={{10,10},{10,70},{70,70},{70,10}} ;
+    rsPolygonItem *polygon = new rsPolygonItem(points);
+    polygon->setBrush(brush);
     polygon->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
     _scene->addItem(polygon);
-    polygon->enterAddMode();
+    // polygon->enterAddMode();
 
 }
 
 void MainWindow::slot3(){
 
+    QPixmap map(":/Frames/galetsW.png");
+    QBrush brush(Qt::blue);
+    brush.setTexture(map);
+    brush.setStyle(Qt::TexturePattern);
+
+
    QList<QPoint> points={{10,10},{20,30},{50,50},{70,100}} ;
      rsPolygonItem *polygon = new rsPolygonItem(points);
+   polygon->setBrush(brush);
     polygon->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
     _scene->addItem(polygon);
-    polygon->enterAddMode();
+//    polygon->enterAddMode();
 
 }
 
-void MainWindow::slot4(){}
+void MainWindow::slot4(){
+
+    QPixmap map(":/Frames/WORK.png");
+    QBrush brush(Qt::blue);
+    brush.setTexture(map);
+    brush.setStyle(Qt::TexturePattern);
+
+
+    QList<QPoint> points={{10,10},{10,70},{70,70},{70,10}} ;
+    rsPolygonItem *polygon = new rsPolygonItem(points);
+    polygon->setBrush(brush);
+    polygon->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
+    _scene->addItem(polygon);
+    // polygon->enterAddMode();
+}
 
 void MainWindow::slot5(){}
 

@@ -34,6 +34,9 @@ void rsPolygonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
     QPoint points[_points.length()];
 
     for (i=0; i<_points.length();i++) points[i]=_points[i];
+    painter->setBrush(_brush);
+//    _brush.setColor(QColor(100,100,100));
+//    painter->setPen(120,120,120);
     painter->drawPolygon(points,_points.length());
 
     if (this->isSelected()) {

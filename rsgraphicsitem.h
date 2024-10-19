@@ -1,6 +1,7 @@
 #ifndef RSGRAPHICSITEM_H
 #define RSGRAPHICSITEM_H
 
+#include <qpainter.h>
 #include <QGraphicsItem>
 
 
@@ -11,7 +12,8 @@ class rsGraphicsItem :  public QObject, public QGraphicsItem
 
 public:
     rsGraphicsItem();
-
+    void setBrush(QBrush brush) {_brush=brush;}
+    void setPen(QPen pen) {_pen=pen;}
 
      QRectF boundingRect(void) const  ;
 
@@ -39,6 +41,8 @@ protected :
     int _hId;               // identificateur du handle (point) de redim
     bool _addMode=false;          // flag pour mode addition de points
     bool _addModeAllowed=true;   //
+    QBrush _brush;
+    QPen _pen;
 
 };
 
