@@ -17,6 +17,7 @@ public:
     void paint (QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget)  ;
 
+    QPainterPath shape(void) const ;
 
 private :
 //    QRectF _handleA,_handleB;

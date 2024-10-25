@@ -84,6 +84,18 @@ void rsPolygonItem::updateBoundingRect(){
 
 }
 
+QPainterPath rsPolygonItem::shape() const{
+
+    QPainterPath path;
+    QPolygon polygon;
+    QPoint point;
+    foreach (point,_points) {
+        polygon << point;
+    }
+    path.addPolygon(polygon);
+    return path;
+}
+
 // ***********************************************
 void rsPolygonItem::resize(QGraphicsSceneMouseEvent *event){
 

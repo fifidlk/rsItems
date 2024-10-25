@@ -1,8 +1,7 @@
-#ifndef RSPOLYLINEITEM_H
-#define RSPOLYLINEITEM_H
+#ifndef RSSTEPSITEM_H
+#define RSSTEPSITEM_H
 
 #include <QGraphicsItem>
-#include "rsgraphicsitem.h"
 #include <QPen>
 #include <QBrush>
 
@@ -10,21 +9,24 @@
 
 #include "rsgraphicsitem.h"
 
-class rsPolyLineItem : public rsGraphicsItem
+class rsStepsItem : public rsGraphicsItem
 {
 public:
-    rsPolyLineItem(QList<QPoint> points);
-
+    rsStepsItem(QList<QPoint> points);
     void paint (QPainter *painter, const QStyleOptionGraphicsItem *option,
                QWidget *widget)  ;
 
-
+    QPainterPath shape(void) const ;
+    void setPen(QPen pen) {_pen=pen;}
+    void setHeight(int size) {_stepHeight=size;}
 
 private :
 
     void updateBoundingRect(void);
     void resize(QGraphicsSceneMouseEvent *event);
+    QPen _pen;
+    int _stepHeight=15;
 
 };
 
-#endif // RSPOLYLINEITEM_H
+#endif // RSSTEPSITEM_H

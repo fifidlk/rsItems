@@ -3,6 +3,7 @@
 #include "rsgraphicsitem.h"
 #include <QGraphicsSceneMouseEvent>
 #include <qpainter.h>
+#include <math.h>
 #include "rslineitem.h"
 
 #define min(a, b)  (((a) < (b)) ? (a) : (b))
@@ -58,12 +59,76 @@ void rsLineItem::resize(QGraphicsSceneMouseEvent *event){
 }
 
 
+// ***********************************************
+//
+QPainterPath rsLineItem::shape() const{
+
+    QPainterPath path;
+    QPolygon polygon;
+    QPoint point;
+    foreach (point,_zzPoints) {
+        polygon << point;
+    }
+    path.addPolygon(polygon);
+    return path;
+}
+
 
 
 
 // ***********************************************
 // mets a jour le boundingRect en fn de _pa et _pb
 void rsLineItem::updateBoundingRect(){
+
+    float x0,x1,y0,y1;
+    float lSegment,d=15;
+    QPoint point;
+
+    _zzPoints.clear();
+    // recuperation des points du segment
+    x0= _points[0].x();
+    y0= _points[0].y();
+    x1= _points[1].x();
+    y1= _points[1].y();
+
+
+    float a0,b0;            // calcul de la droite D0 y0=a0*x0+b0
+    a0=(y0-y1)/(x0-x1);
+    b0= y0-(a0*x0);
+
+    float a1,b1;            // calcul de la droite paralelle D1 a une distance d
+
+    a1=a0;
+    b1=b0-(d*sqrtf(pow(a0,2)+1));
+
+    float a2,b2;           // droite D2 coupe D0 a 90° en P0 (x0,y0)
+    a2=-1/a0;
+    b2=y0-a2*x0;
+
+    float a3,b3;           // droite D3 coupe D0 a 90° en P0 (x1,y1)
+    a3=-1/a0;
+    b3=y1-a3*x1;
+
+    point.setX(x0);
+    point.setY(y0);
+    _zzPoints << point;
+
+    float ix,iy ;
+    ix=(b2-b1)/(a1-a2);     // point d'intersection entre D1 et D2
+    iy=a2*ix+b2;
+    point.setX(ix);
+    point.setY(iy);
+    _zzPoints << point;
+
+    ix=(b3-b1)/(a1-a3) ;    // point d'intersection entre D1 et D3
+    iy=a3*ix+b3;
+    point.setX(ix);
+    point.setY(iy);
+    _zzPoints << point;
+
+    point.setX(x1);
+    point.setY(y1);
+    _zzPoints << point;
 
     int xMin,xMax,yMin,yMax,h,w;
 

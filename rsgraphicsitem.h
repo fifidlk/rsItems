@@ -34,8 +34,9 @@ protected :
     virtual void resize(QGraphicsSceneMouseEvent *event){}
 
     int isMouseInHandle(QPointF pos);
-    QList<QPoint>  _points;
-    QList<QRectF> _handles;
+    QList<QPoint>  _points;         // used to draw item
+    QList<QPoint> _zzPoints;        // used in shape
+    QList<QRectF> _handles;         // used to draw handles
 
     QRectF _boundingRect;
     int _hId;               // identificateur du handle (point) de redim

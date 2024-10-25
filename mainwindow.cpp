@@ -5,6 +5,7 @@
 #include <rslineitem.h>
 #include "rspolylineitem.h"
 #include "rspolygonitem.h"
+#include "rsstepsitem.h"
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
@@ -25,18 +26,16 @@ MainWindow::MainWindow(QWidget *parent)
 
 void MainWindow::slot1(){
 
-    QPixmap map(":/Frames/bouldersW.png");
-    QBrush brush(Qt::blue);
-    brush.setTexture(map);
-    brush.setStyle(Qt::TexturePattern);
+    // QPixmap map(":/Frames/bouldersW.png");
+    // QBrush brush(Qt::blue);
+    // brush.setTexture(map);
+    // brush.setStyle(Qt::TexturePattern);
 
 
     QList<QPoint> points={{10,10},{10,70},{70,70},{70,10}} ;
-    rsPolygonItem *polygon = new rsPolygonItem(points);
-    polygon->setBrush(brush);
-    polygon->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
-    _scene->addItem(polygon);
-    // polygon->enterAddMode();
+    rsLineItem *line = new rsLineItem(points[0],points[1]);
+     line->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
+    _scene->addItem(line);
 }
 
 void MainWindow::slot2(){
@@ -89,7 +88,20 @@ void MainWindow::slot4(){
     // polygon->enterAddMode();
 }
 
-void MainWindow::slot5(){}
+void MainWindow::slot5(){
+
+    QPixmap map(":/Frames/WORK.png");
+    QPen pen(Qt::blue);
+    pen.setWidth(3);
+
+
+    QList<QPoint> points={{10,15},{100,200},{70,70},{70,10}} ;
+    rsStepsItem *steps = new rsStepsItem(points);
+    steps->setPen(pen);
+    steps->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );
+    _scene->addItem(steps);
+
+}
 
 MainWindow::~MainWindow()
 {

@@ -14,14 +14,16 @@ SOURCES += \
     rsgraphicsitem.cpp \
     rslineitem.cpp \
     rspolygonitem.cpp \
-    rspolylineitem.cpp
+    rspolylineitem.cpp \
+    rsstepsitem.cpp
 
 HEADERS += \
     mainwindow.h \
     rsgraphicsitem.h \
     rslineitem.h \
     rspolygonitem.h \
-    rspolylineitem.h
+    rspolylineitem.h \
+    rsstepsitem.h
 
 FORMS += \
     mainwindow.ui
