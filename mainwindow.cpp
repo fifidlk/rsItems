@@ -63,7 +63,7 @@ void MainWindow::slot3(){
     brush.setStyle(Qt::TexturePattern);
 
 
-   QList<QPoint> points={{10,10},{20,30},{50,50},{70,100}} ;
+   QList<QPoint> points={{10,10},{60,10},{70,100},{20,100}} ;
      rsPolygonItem *polygon = new rsPolygonItem(points);
    polygon->setBrush(brush);
     polygon->setFlags(QGraphicsItem::ItemIsMovable | QGraphicsItem::ItemIsSelectable );

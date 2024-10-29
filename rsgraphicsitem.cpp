@@ -1,6 +1,7 @@
 #include <QCursor>
 #include <QGraphicsSceneMouseEvent>
 #include <QMenu>
+#include <cmath>
 #include "rsgraphicsitem.h"
 #include "qdebug.h"
 
@@ -50,7 +51,37 @@ void rsGraphicsItem::mousePressEvent(QGraphicsSceneMouseEvent *event) {
         }
         else if (event->button()==Qt::LeftButton) { // click Gauche ajoute un point
             qDebug() << "adding point";
-            _points.append(QPoint(event->pos().x(),event->pos().y()));
+
+            int i,id;        // recherche du point le plus proche
+            float x,y,xi,yi,d,d1,minDistance=5000;
+            x=event->pos().x();
+            y=event->pos().y();
+            for (i=0; i<_points.length(); i++) {
+                xi=_points[i].x();
+                yi=_points[i].y();
+                d=sqrt(pow((x-xi),2)+pow((y-yi),2));
+                if (minDistance>d) { minDistance=d; id=i;}
+             }
+            i=id-1;         // recherche du second point pour insertion
+             if (id<0) id=_points.length()-1;
+             // x=_points[id].x();
+             // y=_points[id].y();
+             qDebug() << "Point le plus proche " << id;
+             xi=_points[i].x();
+             yi=_points[i].y();
+             d=sqrt(pow((x-xi),2)+pow((y-yi),2));
+             i=id+1;
+             if (i>=_points.length()) id=0;
+             xi=_points[i].x();
+             yi=_points[i].y();
+             d1=sqrt(pow((x-xi),2)+pow((y-yi),2));
+             if (d1<d) {
+                  id++;
+                 qDebug() << "Second point le plus proche " << id;
+             }
+             qDebug() << "Insertion en " << id;
+
+            _points.insert(id,QPoint(event->pos().x(),event->pos().y()));
             prepareGeometryChange();
             updateBoundingRect();
             return ;

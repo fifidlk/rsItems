@@ -41,10 +41,17 @@ void rsPolygonItem::paint(QPainter *painter, const QStyleOptionGraphicsItem *opt
 
     if (this->isSelected()) {
         painter->setBrush(hBrush);
+         QRectF handles[_handles.length()];
+
         painter->setPen(Qt::lightGray);
-        QRectF handles[_handles.length()];
+
         for (i=0; i<_handles.length();i++) handles[i]=_handles[i];
         painter->drawRects(handles,_handles.length());
+
+        // painter->setPen(Qt::red);
+        // hBrush.setColor(Qt::red);
+        // painter->drawRect(handles[0]);
+
     }
 
 }
